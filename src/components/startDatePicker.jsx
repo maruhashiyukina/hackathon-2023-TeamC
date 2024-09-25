@@ -24,7 +24,7 @@ function StartDateInput(props) {
             <div style={{display: 'flex', paddingRight: '2vh'}}>
                 <div style={{float: 'left'}}>
                 <p style={{fontSize: 20, color:'#757575'}}>
-                新しい日程{props.newDatesArray.length - 1 === props.index && (
+                希望する日程{props.newDatesArray.length - 1 === props.index && (
                 <span>
                     <button onClick={handleOnClickDelete} style={{color: 'red', border: 'none', backgroundColor: 'transparent', borderRadius: '50%', float: 'right', position: 'relative', padding: 0}}>×</button>
                 </span>
@@ -52,17 +52,18 @@ export default function StartDatePicker(props) {
             prevItems.map((p, i) =>
                 i === index
                     ? {
+                        key: index,
                         start_date: state === "start" ? UnixTime : p.start_date,
                         end_date: state === "end" ? UnixTime : p.end_date,
                     }
-                    : p
+                    : {p, key:index}
             )
         );
     }
 
     return (
         <div style={{display: 'flex', padding: '0 2vh'}}>
-            {props.newDatesArray.map((_,index) => (<StartDateInput updateStartDateArray={updateStartDateArray} index={index} newDatesArray={props.newDatesArray} setter={props.setter}/>))}
+            {props.newDatesArray.map((_,index) => (<StartDateInput updateStartDateArray={updateStartDateArray} index={index} newDatesArray={props.newDatesArray} setter={props.setter} key={index}/>))}
             <div style={{position: "relative"}}>
                 <button style={{width: '4rem', height: '2rem', marginLeft: '2rem', marginTop: '2rem', border: 'none', backgroundColor: '#8CD790', borderRadius: 25, color: 'white', boxShadow: "0 2px 4px rgba(0,0,0,0.3)", position: 'absolute', bottom: 0}}
                         onClick={handleClickedBtn}>追加
